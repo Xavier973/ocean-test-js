@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#0f172a">
+  <title>Test OCEAN (Big Five) — Version Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+  <div class="wrap">
+    <div><strong>Test OCEAN</strong> <span class="muted">par Xavier Cuniberti</span></div>
+    <button class="btn ghost" id="btn-theme" aria-label="Basculer le thème">🌓</button>
+  </div>
+</header>
+
+  <main id="app">
+    <!-- Écran d’accueil -->
+    <section id="screen-start">
+      <h1>Choisissez la version du test</h1>
+      <p class="muted">Répondez spontanément, il n’y a pas de bonne ou de mauvaise réponse.</p>
+      <div class="row">
+        <button class="btn" data-start="40">Version courte (40 questions)</button>
+        <button class="btn" data-start="120">Version longue (120 questions)</button>
+      </div>
+      <div class="note">Les questions sont présentées une par une. Vos réponses restent sur votre appareil.</div>
+    </section>
+
+    <!-- Écran de passation -->
+    <section id="screen-quiz" class="hidden">
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <div class="counter" id="counter">001/040</div>
+        <div style="flex:1; margin:0 14px;">
+          <div class="progress"><div id="progress-inner"></div></div>
+        </div>
+        <div id="title-variant" class="muted">40 items</div>
+      </div>
+
+      <h2 id="q-title" class="qtext">Question…</h2>
+      
+      <form id="form-scale" class="scale"></form>
+
+      <div class="footer">
+        <button class="btn" id="btn-prev">◀ Précédent</button>
+        <button class="btn primary" id="btn-next">Suivant ▶</button>
+      </div>
+    </section>
+
+    <!-- Écran de résultats -->
+    <section id="screen-result" class="hidden">
+      <h1>Résultats (0–100)</h1>
+      <div id="results"></div>
+      <canvas id="radarChart" width="400" height="400" style="max-width:400px;margin:24px auto;display:block;"></canvas>
+      <div id="profil"></div>
+      <div class="row" style="margin-top:16px;">
+        <button class="btn" id="btn-restart">Recommencer</button>
+        <button class="btn" id="btn-pdf">Télécharger le PDF</button>
+      </div>
+      <p class="note">Calcul : inversion des items négatifs (6 − valeur), normalisation sur 5 points, moyenne par trait → %.</p>
+    </section>
+  </main>
+    <script src="questions_ocean_40.js"></script>
+    <script src="questions_ocean_120.js"></script>
+    <script src="profil.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="main.js"></script>
+  <footer>
+  <div class="wrap">
+    <a href="https://github.com/Xavier973" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.41 7.86 10.94.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.39-3.87-1.39-.53-1.34-1.3-1.7-1.3-1.7-1.07-.73.08-.71.08-.71 1.19.09 1.82 1.23 1.82 1.23 1.05 1.81 2.75 1.29 3.42.99.11-.76.41-1.29.74-1.58-2.55-.29-5.24-1.28-5.24-5.72 0-1.26.45-2.3 1.19-3.11-.12-.29-.52-1.47.11-3.07 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.6.23 2.78.11 3.07.74.81 1.19 1.85 1.19 3.11 0 4.45-2.69 5.43-5.25 5.71.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56A10.99 10.99 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+      </svg>
+    </a>
+    <a href="https://bit.ly/m/Xavier-Data-Engineer" target="_blank" rel="noopener">Mon portfolio</a>
+    <a href="https://www.linkedin.com/in/xavier-cuniberti-528aa84b/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.45 20.45h-3.55v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85v5.5H9.47V9h3.41v1.56h.05c.47-.89 1.61-1.83 3.31-1.83 3.54 0 4.19 2.33 4.19 5.36v6.36zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.97 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.23 0z"/>
+      </svg>
+    </a>
+    
+  </div>
+</footer>
+</body>
+</html>
